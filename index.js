@@ -100,7 +100,7 @@ const addRole = () => {
         message: "What is the role's department id?",
         type: "input"
     }
-]).then(answer => {
+    ]).then(answer => {
         const query = "INSERT INTO role (title, salary, department_id) values (?, ?, ?);";
 
         connection.query(query, [answer.title, answer.salary, answer.id], (err, res) => {
@@ -124,7 +124,7 @@ const addEmployee = () => {
         message: "What is the employees role id?",
         type: "input"
     }
-]).then(answer => {
+    ]).then(answer => {
         const query = "INSERT INTO employee (first_name, last_name, role_id) values (?, ?, ?);";
 
         connection.query(query, [answer.first, answer.last, answer.id], (err, res) => {
