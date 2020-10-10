@@ -1,5 +1,7 @@
+// Dependencies
 const inquirer = require('inquirer');
 const mysql = require('mysql');
+// Connect to database
 const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -11,6 +13,7 @@ connection.connect(err => {
     console.log('connected');
     runSearch();
 });
+// Ask initial set of questions and respond based on user answer
 const runSearch = () => {
     inquirer.prompt({
         name: "queryType",
@@ -33,10 +36,11 @@ const runSearch = () => {
         }
     })
 }
+// view any of the three tables in the database
 const view = () => {
     inquirer.prompt({
         name: "tableType",
-        message: "What table would you like to query?",
+        message: "What table would you like to view?",
         type: "list",
         choices: ["department", "role", "employee"]
     }).then(answer => {
@@ -49,6 +53,7 @@ const view = () => {
         });
     });
 }
+// add to any of the three tables, and get asked a different set of questions based on answer
 const add = () => {
     inquirer.prompt({
         name: "addType",
@@ -71,6 +76,7 @@ const add = () => {
         }
     })
 }
+// add to the department table
 const addDepartment = () => {
     inquirer.prompt({
         name: "name",
@@ -86,6 +92,7 @@ const addDepartment = () => {
         });
     });
 }
+// add to the role table
 const addRole = () => {
     inquirer.prompt([{
         name: "title",
@@ -110,6 +117,7 @@ const addRole = () => {
         });
     });
 }
+// add to the employee table
 const addEmployee = () => {
     inquirer.prompt([{
         name: "first",
@@ -134,7 +142,7 @@ const addEmployee = () => {
         });
     });
 }
-// Update the given employee's role
+// Update any given employee's role id
 const update = () => {
     inquirer.prompt([{
         name: "employee",
