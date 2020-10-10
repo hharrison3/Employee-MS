@@ -40,9 +40,9 @@ const view = () => {
         type: "list",
         choices: ["department", "role", "employee"]
     }).then(answer => {
-        const query = "SELECT * FROM ?;";
+        const query = `SELECT * FROM ${answer.tableType};`;
 
-        connection.query(query, answer.tableType, (err, res) => {
+        connection.query(query, (err, res) => {
             if (err) throw err;
             console.table(res);
             runSearch();
@@ -134,3 +134,24 @@ const addEmployee = () => {
         });
     });
 }
+// Update the given employee's role
+const update = () => {
+    inquirer.prompt([{
+        name: "employee",
+        message: "What is the employees id that you want to update?",
+        type: "input"
+    }, {
+        name: "role",
+        message: "What do you want to set this employees role_id to?",
+        type: "input"
+    }
+    ]).then(answer => {
+        const query = "UPDATE employee SET role_id = ? WHERE id = ?;";
+
+        connection.query(query, [answer.role, answer.employee], (err, res) => {
+            if (err) throw err;
+            console.table(res);
+            runSearch();
+        });
+    });
+}  
